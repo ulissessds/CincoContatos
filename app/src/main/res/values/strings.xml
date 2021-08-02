@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">Contatos de Emergência</string>
+
+    <string name="alterar_dados">Alterar Dados</string>
+    <string name="bem_vindo">Bem Vindo</string>
+    <string name="buscar">Buscar</string>
+    <string name="hint_nome_contato">Nome do Contato?</string>
+    <string name="hint_login">Usuário</string>
+    <string name="hint_senha">Senha</string>
+    <string name="hint_nome">Nome</string>
+    <string name="hint_email">E-mail</string>
+    <string name="entrar">Entrar</string>
+    <string name="criar">Criar</string>
+    <string name="novo">Novo</string>
+    <string name="cadastrar_novo">Cadastrar Novo Usuário</string>
+    <string name="esqueceu">Esqueceu a senha?</string>
+    <string name="manter_logado">Manter Logado?</string>
+    <string name="tema_escuro">Tema Escuro?</string>
+    <string name="no">Não</string>
+    <string name="sim">Sim</string>
+    <string name="ligar">Ligar</string>
+    <string name="mudar_contatos">Mudar Contatos</string>
+    <string name="perfil">Perfil</string>
+    <string name="modificar">Modificar</string>
+
+</resources>
