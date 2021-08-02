@@ -14,7 +14,12 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import com.example.cincocontatos.R;
+import com.example.main.model.Contato;
 import com.example.main.model.User;
+
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.nio.charset.StandardCharsets;
 
 public class NovoUsuarioActivity extends AppCompatActivity {
 
@@ -117,7 +122,6 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                 email = edEmail.getText().toString();
                 boolean manterLogado;
                 manterLogado= swLogado.isChecked();
-
                 boolean temaEscuro=swTema.isChecked();
 
                 SharedPreferences salvaUser= getSharedPreferences("usuarioPadrao", Activity.MODE_PRIVATE);
@@ -127,16 +131,40 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                 escritor.putString("senha",senha);
                 escritor.putString("login",login);
 
-                //Escrever no SharedPreferences
-                //Falta Salvar o E-mail
+                // Escrever no SharedPreferences
                 escritor.putString("email",email);
                 escritor.putBoolean("manterLogado",manterLogado);
 
                 escritor.putBoolean("tema",temaEscuro);
 
-                escritor.commit(); //Salva em Disco
+                escritor.commit(); // Salva em Disco
 
-                //Salvando o user
+                // Limpar o SharedPreference de contatos anterior...
+                SharedPreferences recuperarContatos = getSharedPreferences("contatos", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = recuperarContatos.edit();
+
+                int num = recuperarContatos.getInt("numContatos", 0);
+                Contato contato;
+
+                for (int i = 1; i <= num; i++) {
+                    String objSel = recuperarContatos.getString("contato" + i, "");
+                    if (objSel.compareTo("") != 0) {
+                        try {
+                            ByteArrayInputStream bis = new ByteArrayInputStream
+                                    (objSel.getBytes(StandardCharsets.ISO_8859_1.name()));
+                            ObjectInputStream oos = new ObjectInputStream(bis);
+                            contato = (Contato) oos.readObject();
+
+                            editor.remove("contato" + i);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                editor.commit();
+
+                // Salvando o user
 
                 User user =new User(nome,login,senha,email,manterLogado);
 
@@ -144,8 +172,8 @@ public class NovoUsuarioActivity extends AppCompatActivity {
                 intent.putExtra("usuario",user);
                 startActivity(intent);
 
-                //Mesmo após a chamar de um startActivity o método continuará execuntando
-                //Por exemplo, aqui mataremos a Activity atual porém AlterarContatos será exibida
+                // Mesmo após a chamar de um startActivity o método continuará execuntando
+                // Por exemplo, aqui mataremos a Activity atual porém AlterarContatos será exibida
                 finish();
             }
         });

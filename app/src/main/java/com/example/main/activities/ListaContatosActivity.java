@@ -409,7 +409,7 @@ public class ListaContatosActivity extends AppCompatActivity implements UIEducac
         String senhaSalva = temUser.getString("senha","");
         String nomeSalvo = temUser.getString("nome","");
         String emailSalvo = temUser.getString("email","");
-        boolean manterLogado=temUser.getBoolean("manterLogado",false);
+        boolean manterLogado = temUser.getBoolean("manterLogado",false);
 
         user=new User(nomeSalvo,loginSalvo,senhaSalva,emailSalvo,manterLogado);
         return user;
